@@ -9,13 +9,15 @@ const text_accent = 'text-accent-dark dark:text-accent-light';
 const accent_content = 'text-light dark:text-dark';
 
 
-export default function Projects({ props }) {
+export default function Projects(props) {
   const { projectData } = props;
 
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   }
+
+  console.log(projectData)
 
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
@@ -37,10 +39,13 @@ export default function Projects({ props }) {
             </div>
           </div>
           <div className={`flex flex-col w-full gap-5`}>
-            <div className={`flex flex-col w-full bg-dark`}>
+            <div className={`flex flex-col h-28 w-full bg-dark`}>
               <p>Back Button, prev and next</p>
             </div>
-            <p>Content Here</p>
+            <div className={`flex flex-col h-full w-full bg-dark`}>
+              <h1>{projectData.title}</h1>
+              {/* <p>content here</p> */}
+            </div>
           </div>
 
         </div>
