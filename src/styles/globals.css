@@ -15,3 +15,7 @@
     @apply text-xs
   }
 }
+
+* {
+  @apply transition-colors;
+}
