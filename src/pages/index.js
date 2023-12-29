@@ -1,14 +1,20 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { performRequest } from '../../lib/datocms'
 import Link from 'next/link'
 import { Montserrat } from 'next/font/google'
+import { formatTagsString, formatDate } from '@/utils/utils'
+import { motion, useDragControls, useMotionValue } from "framer-motion";
+import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
+
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const accent_color = 'bg-accent-dark dark:bg-accent-light';
 const content_color = 'text-dark dark:text-light';
 const text_accent = 'text-accent-dark dark:text-accent-light';
 const accent_content = 'text-light dark:text-dark';
+const border_accent = 'border-accent-dark dark:border-accent-light';
+
 
 const PAGE_CONTENT_QUERY = `
 query Projects {
@@ -29,11 +35,10 @@ export async function getStaticProps() {
   return { props: { projects } };
 }
 
-
 const ProjectPreview = (props) => {
   const { data } = props;
-  const tagsString = data.tags.map((tag) => tag.tagName).join(' / ');
-  const formattedDate = new Date(data.date).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', ' / ');
+  const tagsString = formatTagsString(data.tags);
+  const formattedDate = formatDate(data.date);
 
   return (
     <Link href={`/projects/${data.slug}`}>
@@ -60,8 +65,8 @@ export default function Home({ projects }) {
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
       <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark`}>
         <div className={`flex flex-row h-full w-full gap-5`}>
-          <div className={`flex flex-col w-48 gap-5`}>
-            <div className={`flex h-28 w-full`}>
+          <div className={`flex flex-col min-w-32 gap-5`}>
+            <div className={`flex h-28`}>
               <Image
                 src="/favicon.ico"
                 width={165}
@@ -80,23 +85,32 @@ export default function Home({ projects }) {
               <button>Toggle Tone</button>
             </div>
           </div>
-          <div className={`flex flex-row w-full gap-5`}>
-            <div className={`flex flex-col w-full gap-5`}>
-              <div className={`flex items-end h-28 w-full ${text_accent}`}>
+
+          <PanelGroup direction='horizontal' className={`flex flex-row w-full gap-3`}>
+            <Panel
+              className={`flex flex-col gap-5`}
+              minSize={30}>
+              <div className={`flex items-end min-h-28 w-full ${text_accent}`}>
                 <h1>Projects</h1>
               </div>
-              <div className={`flex flex-col gap-3`}>
+              <div className={`flex h-full flex-col gap-3`}>
                 {projects.map((p) => (
                   <ProjectPreview key={p.id} data={p} />
                 ))}
               </div>
-            </div>
-            <div className={`flex flex-col w-full gap-5`}>
-              <div className={`flex items-end h-28 w-full ${text_accent}`}>
+            </Panel>
+            <PanelResizeHandle className={`flex border-box self-center w-1 h-24 rounded-full ${accent_color}`} />
+            <Panel
+              className={`flex flex-col gap-5`}
+              minSize={30}>
+              <div className={`flex items-end min-h-28 w-full ${text_accent}`}>
                 <h1>About</h1>
               </div>
-            </div>
-          </div>
+              <div className={`flex flex-col border h-full p-6 ${border_accent} ${content_color}`}>
+                <p>about content</p>
+              </div>
+            </Panel>
+          </PanelGroup>
 
         </div>
       </div>

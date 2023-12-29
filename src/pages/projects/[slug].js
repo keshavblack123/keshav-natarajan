@@ -1,6 +1,8 @@
 import { performRequest } from '../../../lib/datocms'
+import { Image as DatoImage, StructuredText } from "react-datocms";
 import { useState } from 'react'
 import { Montserrat } from 'next/font/google'
+import { formatTagsString, formatDate } from '@/utils/utils';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const accent_color = 'bg-accent-dark dark:bg-accent-light';
@@ -16,14 +18,16 @@ export default function Projects(props) {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
   }
+  const tagsString = formatTagsString(projectData.tags);
+  const formattedDate = formatDate(projectData.date);
 
-  console.log(projectData)
+  console.log(projectData.githubLink)
 
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
       <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark`}>
         <div className={`flex flex-row h-full w-full gap-5`}>
-          <div className={`flex flex-col w-48 gap-5`}>
+          <div className={`flex flex-col min-w-32 gap-5`}> {/*side ba*/}
             <div className={`flex h-28 w-full`}>
               <p>Logo</p>
             </div>
@@ -37,17 +41,29 @@ export default function Projects(props) {
               onClick={toggleDarkMode}>
               <button>Toggle Tone</button>
             </div>
-          </div>
+          </div> {/*end side ba*/}
           <div className={`flex flex-col w-full gap-5`}>
             <div className={`flex flex-col h-28 w-full bg-dark`}>
               <p>Back Button, prev and next</p>
             </div>
-            <div className={`flex flex-col h-full w-full bg-dark`}>
+            <div className={`flex flex-col h-full w-full gap-5 ${content_color}`}>
               <h1>{projectData.title}</h1>
-              {/* <p>content here</p> */}
+              <DatoImage data={projectData.heroImage.responsiveImage} />
+              <div className={`flex flex-row w-full justify-between`}>
+                <div className={`flex flex-col `}>
+                  <h3>Date: {formattedDate}</h3>
+                  <h3>Tags: {tagsString}</h3>
+                  <h3><a href={projectData.githubLink} target="_blank" rel="noopener noreferrer">Github Link</a></h3>
+                </div>
+                <div className={``}>
+                  <StructuredText data={projectData.summary} />
+                </div>
+              </div>
             </div>
           </div>
-
+          <div className={`flex w-1/12 min-w-0`}> {/*side ba*/}
+            <></>
+          </div> {/*end side ba*/}
         </div>
       </div>
     </main>
@@ -81,9 +97,7 @@ query Project($slug: String) {
     tags {
       tagName
     }
-    link {
-      value
-    }
+    githubLink
     summary {
       value
     }
