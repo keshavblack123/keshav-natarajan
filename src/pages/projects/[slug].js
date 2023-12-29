@@ -1,15 +1,9 @@
 import { performRequest } from '../../../lib/datocms'
 import { Image as DatoImage, StructuredText } from "react-datocms";
 import { useState } from 'react'
-import { Montserrat } from 'next/font/google'
 import { formatTagsString, formatDate } from '@/utils/utils';
-
-const montserrat = Montserrat({ subsets: ['latin'] });
-const accent_color = 'bg-accent-dark dark:bg-accent-light';
-const content_color = 'text-dark dark:text-light';
-const text_accent = 'text-accent-dark dark:text-accent-light';
-const accent_content = 'text-light dark:text-dark';
-
+import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent } from '@/utils/utils';
+import Link from 'next/link';
 
 export default function Projects(props) {
   const { projectData } = props;
@@ -20,8 +14,6 @@ export default function Projects(props) {
   }
   const tagsString = formatTagsString(projectData.tags);
   const formattedDate = formatDate(projectData.date);
-
-  console.log(projectData.githubLink)
 
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
@@ -43,19 +35,33 @@ export default function Projects(props) {
             </div>
           </div> {/*end side ba*/}
           <div className={`flex flex-col w-full gap-5`}>
-            <div className={`flex flex-col h-28 w-full bg-dark`}>
-              <p>Back Button, prev and next</p>
+            <div className={`flex flex-row h-28 w-full justify-between items-end`}>
+              <button className={`flex gap-4 ${text_accent} transition-all hover:italic`}>
+                <Link href="/">
+                  <span className="mr-2 text-xl">&larr;</span>
+                  <span>Back</span>
+                </Link>
+              </button>
+              <div className={`flex gap-4 ${text_accent}`}>
+                <button>
+                  <span className="text-xl">&larr;</span>
+                </button>
+                <button>
+                  <span className="text-xl">&rarr;</span>
+                </button>
+              </div>
+
             </div>
             <div className={`flex flex-col h-full w-full gap-5 ${content_color}`}>
               <h1>{projectData.title}</h1>
               <DatoImage data={projectData.heroImage.responsiveImage} />
               <div className={`flex flex-row w-full justify-between`}>
-                <div className={`flex flex-col `}>
-                  <h3>Date: {formattedDate}</h3>
-                  <h3>Tags: {tagsString}</h3>
-                  <h3><a href={projectData.githubLink} target="_blank" rel="noopener noreferrer">Github Link</a></h3>
+                <div className={`flex flex-col w-1/3`}>
+                  <h4>Date: {formattedDate}</h4>
+                  <h4>Tags: {tagsString}</h4>
+                  <h4><a href={projectData.githubLink} target="_blank" rel="noopener noreferrer">Github Link</a></h4>
                 </div>
-                <div className={``}>
+                <div className={`w-2/3`}>
                   <StructuredText data={projectData.summary} />
                 </div>
               </div>
@@ -82,6 +88,7 @@ export const getStaticPaths = async () => {
 
   let paths = [];
   slugQuery.data.allProjects.map((p) => paths.push(`/projects/${p.slug}`));
+  console.log(paths);
 
   return {
     paths,

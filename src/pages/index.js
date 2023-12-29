@@ -2,19 +2,17 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { performRequest } from '../../lib/datocms'
 import Link from 'next/link'
-import { Montserrat } from 'next/font/google'
 import { formatTagsString, formatDate } from '@/utils/utils'
 import { motion, useDragControls, useMotionValue } from "framer-motion";
 import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
+import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent } from '@/utils/utils';
+import { StructuredText } from 'react-datocms/structured-text'
 
-
-const montserrat = Montserrat({ subsets: ['latin'] });
-const accent_color = 'bg-accent-dark dark:bg-accent-light';
-const content_color = 'text-dark dark:text-light';
-const text_accent = 'text-accent-dark dark:text-accent-light';
-const accent_content = 'text-light dark:text-dark';
-const border_accent = 'border-accent-dark dark:border-accent-light';
-
+// const accent_color = 'bg-accent-dark dark:bg-accent-light';
+// const content_color = 'text-dark dark:text-light';
+// const text_accent = 'text-accent-dark dark:text-accent-light';
+// const accent_content = 'text-light dark:text-dark';
+// const border_accent = 'border-accent-dark dark:border-accent-light';
 
 const PAGE_CONTENT_QUERY = `
 query Projects {
@@ -29,10 +27,30 @@ query Projects {
   }
 }`;
 
+const ABOUT_ME_QUERY = `
+query AboutMe {
+  aboutMe {
+    pastWorkExperience {
+      value
+    }
+    skills {
+      tagName
+    }
+    summary {
+      value
+    }
+    education {
+      value
+    }
+  }
+}`
+
 export async function getStaticProps() {
-  const { data } = await performRequest({ query: PAGE_CONTENT_QUERY });
-  const projects = data.allProjects;
-  return { props: { projects } };
+  const { data: allProjects } = await performRequest({ query: PAGE_CONTENT_QUERY });
+  const { data: aboutMe } = await performRequest({ query: ABOUT_ME_QUERY });
+  const projects = allProjects.allProjects;
+  const about = aboutMe.aboutMe;
+  return { props: { projects, about } };
 }
 
 const ProjectPreview = (props) => {
@@ -53,8 +71,11 @@ const ProjectPreview = (props) => {
   )
 }
 
-export default function Home({ projects }) {
-  const { data } = projects;
+export default function Home(props) {
+  const { projects } = props;
+  const { about } = props;
+  const skillsString = formatTagsString(about.skills);
+
 
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
@@ -93,7 +114,7 @@ export default function Home({ projects }) {
               <div className={`flex items-end min-h-28 w-full ${text_accent}`}>
                 <h1>Projects</h1>
               </div>
-              <div className={`flex h-full flex-col gap-3`}>
+              <div className={`flex h-full flex-col gap-3`} style={{ overflow: 'auto' }}>
                 {projects.map((p) => (
                   <ProjectPreview key={p.id} data={p} />
                 ))}
@@ -106,8 +127,31 @@ export default function Home({ projects }) {
               <div className={`flex items-end min-h-28 w-full ${text_accent}`}>
                 <h1>About</h1>
               </div>
-              <div className={`flex flex-col border h-full p-6 ${border_accent} ${content_color}`}>
-                <p>about content</p>
+              <div className={`flex flex-col border h-full gap-5 p-6 ${border_accent} ${content_color}`} style={{ overflow: 'auto' }}>
+                <StructuredText data={about.summary} />
+                <div className={`flex flex-col gap-2`}>
+                  <h3 className={`${text_accent}`}>Skills</h3>
+                  <div className={`flex flex-wrap gap-5`}>
+                    {about.skills.map((tag, index) => (
+                      <p key={index}>{tag.tagName}</p>
+                    ))}
+                  </div>
+
+                </div>
+                <div className={`flex flex-col gap-2`}>
+                  <h3 className={`${text_accent}`}>Education</h3>
+                  <StructuredText data={about.education} />
+                </div>
+                <div className={`flex flex-col gap-2`}>
+                  <h3 className={`${text_accent}`}>Past Work Experience</h3>
+                  <StructuredText data={about.pastWorkExperience} />
+                </div>
+                <div className={`flex flex-col gap-2`}>
+                  <h3 className={`${text_accent}`}>Contact</h3>
+                  <p>LinkedIn Link</p>
+                  <p>Github Link</p>
+                  <p>Email</p>
+                </div>
               </div>
             </Panel>
           </PanelGroup>
