@@ -76,14 +76,14 @@ export default function Projects(props) {
                   <div className={`flex flex-col w-1/3`}>
                     <p>Date: {formattedDate}</p>
                     <p>Tags: {tagsString}</p>
-                    <p><a href={projectData.githubLink} target="_blank" rel="noopener noreferrer">Github Link</a></p>
+                    <p><a href={projectData.githubLink} target="_blank" rel="noopener noreferrer">Project Link</a></p>
                   </div>
                   <div className={`w-2/3`}>
                     <StructuredText data={projectData.summary} />
                   </div>
                 </div>
               </div>
-              <div>
+              <div className='flex flex-col gap-8'>
                 {content && content.map((content) => (
                   <ImageAndTextBlock key={content.id} block={content} />
                 ))}
@@ -201,7 +201,7 @@ query Project($slug: String) {
         id
         image {
           image {
-            responsiveImage {
+            responsiveImage(imgixParams: {fit: max, w: "500", h: "500"}) {
               alt
               aspectRatio
               base64
@@ -237,7 +237,7 @@ const ImageAndTextBlock = ({ block }) => {
     return (
       <div className={`flex flex-row-reverse gap-5`}>
         {imageAndText.map((item, index) => (
-          <div key={index}>
+          <div key={index} className={`flex-1 max-w-[50%]`}>
             {item.para && item.para.value && (
               <StructuredText data={item.para} />
             )}
@@ -258,7 +258,7 @@ const ImageBlock = ({ block }) => {
     return (
       <div className={`flex flex-wrap justify-center gap-8`}>
         {image.map((item, index) => (
-          <div key={index} className={`w-3/5`}>
+          <div key={index}>
             {item.image && (
               <DatoImage data={item.image.responsiveImage} />
             )}
