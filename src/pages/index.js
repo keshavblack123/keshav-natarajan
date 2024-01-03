@@ -4,7 +4,7 @@ import { performRequest } from '../../lib/datocms'
 import Link from 'next/link'
 import { formatTagsString, formatDate } from '@/utils/utils'
 import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
-import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent } from '@/utils/utils';
+import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent, switch_color } from '@/utils/utils';
 import { StructuredText } from 'react-datocms/structured-text'
 
 // const accent_color = 'hover:bg-accent-dark dark:hover:bg-accent-light';
@@ -97,9 +97,10 @@ export default function Home(props) {
                 <span className={`${text_accent}`}>Natarajan</span>
               </p>
             </div>
-            <div className={`flex h-28 items-start justify-center ${accent_color} ${accent_content}`}
-              onClick={toggleDarkMode}>
-              <button>Toggle Tone</button>
+            <div className={`flex h-28 items-start justify-center`}>
+              <button className={`relative h-9 w-16 p-1 cursor-pointer rounded-full transition-all duration-800 border-2 border-accent-dark dark:border-accent-light`} onClick={toggleDarkMode}>
+                <span className={`absolute h-6 w-6 left-1 top-1 rounded-full bg-accent-dark dark:bg-accent-light ${darkMode ? 'translate-x-7' : 'translate-x-0'}`}></span>
+              </button>
             </div>
           </div>
 

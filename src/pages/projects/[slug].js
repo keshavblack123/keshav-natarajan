@@ -9,7 +9,6 @@ import Link from 'next/link';
 export default function Projects(props) {
   const { projectData } = props;
   const content = projectData.content;
-  console.log(content);
 
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
@@ -37,9 +36,10 @@ export default function Projects(props) {
                 <span className={`${text_accent}`}>Natarajan</span>
               </p>
             </div>
-            <div className={`flex h-28 items-start justify-center ${accent_color} ${accent_content}`}
-              onClick={toggleDarkMode}>
-              <button>Toggle Tone</button>
+            <div className={`flex h-28 items-start justify-center`}>
+              <button className={`relative h-9 w-16 p-1 cursor-pointer rounded-full transition-all duration-800 border-2 border-accent-dark dark:border-accent-light`} onClick={toggleDarkMode}>
+                <span className={`absolute h-6 w-6 left-1 top-1 rounded-full bg-accent-dark dark:bg-accent-light ${darkMode ? 'translate-x-7' : 'translate-x-0'}`}></span>
+              </button>
             </div>
           </div> {/*end side ba*/}
           <div className={`flex flex-col w-full gap-5 overflow-auto`}>
@@ -249,7 +249,6 @@ const ImageAndTextBlock = ({ block }) => {
       </div>
     );
   }
-
 }
 
 const ImageBlock = ({ block }) => {
@@ -276,7 +275,7 @@ const VideoBlock = ({ block }) => {
   if (url !== undefined) {
     return (
       <div className="youtube">
-        <iframe className='video' src={block.url} title={block.title} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe className='video' src={block.url} title={block.title} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
       </div>
     );
   }
