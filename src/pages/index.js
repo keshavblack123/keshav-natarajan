@@ -3,20 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { performRequest } from '../../lib/datocms'
 import Link from 'next/link'
 import { formatTagsString, formatDate } from '@/utils/utils'
-import { motion, useDragControls, useMotionValue } from "framer-motion";
 import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
 import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent } from '@/utils/utils';
 import { StructuredText } from 'react-datocms/structured-text'
 
-// const accent_color = 'bg-accent-dark dark:bg-accent-light';
-// const content_color = 'text-dark dark:text-light';
+// const accent_color = 'hover:bg-accent-dark dark:hover:bg-accent-light';
+// const content_color = 'text-dark hover:text-light dark:text-light dark:hover:text-dark';
 // const text_accent = 'text-accent-dark dark:text-accent-light';
 // const accent_content = 'text-light dark:text-dark';
 // const border_accent = 'border-accent-dark dark:border-accent-light';
 
 const PAGE_CONTENT_QUERY = `
 query Projects {
-  allProjects {
+  allProjects(orderBy: date_DESC) {
     title
     slug
     tags {
@@ -60,22 +59,19 @@ const ProjectPreview = (props) => {
 
   return (
     <Link href={`/projects/${data.slug}`}>
-      <div className={`flex flex-row items-end justify-between p-6 h-28 w-full ${accent_color}`}>
-        <div className={`flex flex-col justify-between h-full ${accent_content}`}>
+      <div className={`flex flex-row items-end justify-between p-6 h-28 w-full rounded-sm ${accent_content} ${accent_color}`}>
+        <div className={`flex flex-col justify-between h-full`}>
           <h3>{data.title}</h3>
           <p>{tagsString}</p>
         </div>
-        <p className={`${accent_content}`}>{formattedDate}</p>
+        <p>{formattedDate}</p>
       </div>
     </Link>
   )
 }
 
 export default function Home(props) {
-  const { projects } = props;
-  const { about } = props;
-  const skillsString = formatTagsString(about.skills);
-
+  const { projects, about } = props;
 
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
@@ -84,9 +80,9 @@ export default function Home(props) {
 
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
-      <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark`}>
+      <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark transition-colors`}>
         <div className={`flex flex-row h-full w-full gap-5`}>
-          <div className={`flex flex-col min-w-32 gap-5`}>
+          <div className={`flex flex-col flex-shrink gap-5`}>
             <div className={`flex h-28`}>
               <Image
                 src="/favicon.ico"
@@ -120,23 +116,22 @@ export default function Home(props) {
                 ))}
               </div>
             </Panel>
-            <PanelResizeHandle className={`flex border-box self-center w-1 h-24 rounded-full ${accent_color}`} />
+            <PanelResizeHandle className={`flex border-box self-center w-1 h-24 rounded-full bg-accent-dark dark:bg-accent-light`} />
             <Panel
               className={`flex flex-col gap-5`}
               minSize={30}>
               <div className={`flex items-end min-h-28 w-full ${text_accent}`}>
                 <h1>About</h1>
               </div>
-              <div className={`flex flex-col border h-full gap-5 p-6 ${border_accent} ${content_color}`} style={{ overflow: 'auto' }}>
+              <div className={`flex flex-col border h-full gap-5 p-6 rounded-sm ${border_accent} ${content_color}`} style={{ overflow: 'auto' }}>
                 <StructuredText data={about.summary} />
                 <div className={`flex flex-col gap-2`}>
                   <h3 className={`${text_accent}`}>Skills</h3>
-                  <div className={`flex flex-wrap gap-5`}>
+                  <ul className={`flex flex-wrap gap-5 list-disc pl-4`}>
                     {about.skills.map((tag, index) => (
-                      <p key={index}>{tag.tagName}</p>
+                      <li key={index} className='mr-5 text-sm'>{tag.tagName}</li>
                     ))}
-                  </div>
-
+                  </ul>
                 </div>
                 <div className={`flex flex-col gap-2`}>
                   <h3 className={`${text_accent}`}>Education</h3>
