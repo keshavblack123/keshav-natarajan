@@ -79,7 +79,7 @@ export default function Home(props) {
   }
 
   return (
-    <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
+    <main className={` ${montserrat.className} ${darkMode && 'dark'} bg-light dark:bg-dark`}>
       <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark transition-colors`}>
         <div className={`flex flex-row h-full w-full gap-5`}>
           <div className={`flex flex-col flex-shrink gap-5`}>
@@ -144,8 +144,8 @@ export default function Home(props) {
                 </div>
                 <div className={`flex flex-col gap-2`}>
                   <h3 className={`${text_accent}`}>Contact</h3>
-                  <p>LinkedIn Link</p>
-                  <p>Github Link</p>
+                  <p>LinkedIn</p>
+                  <p>Github</p>
                   <p>Email</p>
                 </div>
               </div>

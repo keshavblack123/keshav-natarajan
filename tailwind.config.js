@@ -20,7 +20,7 @@ module.exports = {
     colors: {
       'white': '#ffffff',
       'black': '#000000',
-      'dark': '#363230',
+      'dark': '#202020',
       'light': '#E0E0E0',
       'accent-dark': '#5B7267',
       'accent-light': '#FFD700',
