@@ -60,12 +60,12 @@ const ProjectPreview = (props) => {
 
   return (
     <Link href={`/projects/${data.slug}`}>
-      <div className={`flex flex-row items-end justify-between p-6 h-28 w-full rounded-sm ${accent_content} ${accent_color}`}>
-        <div className={`flex flex-col justify-between h-full`}>
-          <h3>{data.title}</h3>
+      <div className={`flex flex-col justify-between p-6 h-28 w-full rounded-sm ${accent_content} ${accent_color}`}>
+        <h3 className={`truncate`}>{data.title}</h3>
+        <div className={`flex flex-row justify-between w-full`}>
           <p>{tagsString}</p>
+          <p>{formattedDate}</p>
         </div>
-        <p>{formattedDate}</p>
       </div>
     </Link>
   )
