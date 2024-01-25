@@ -5,7 +5,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="icon" href="/lightLogo.png?v=2" type="image/png" />
+          <link rel="icon" href="/favicon.ico" sizes='32x32' />
         </Head>
         <body>
           <Main />
