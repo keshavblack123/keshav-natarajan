@@ -23,7 +23,7 @@ export default function Projects(props) {
         <div className={`flex flex-col m-5 flex-shrink gap-5`}>
           <div className={`flex h-28`}>
             <Image
-              src="/favicon.ico"
+              src={darkMode ? "/lightLogo.png" : "/darkLogo.png"}
               width={165}
               height={100}
               alt="logo"

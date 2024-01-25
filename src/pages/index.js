@@ -6,12 +6,7 @@ import { formatTagsString, formatDate } from '@/utils/utils'
 import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
 import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent, switch_color } from '@/utils/utils';
 import { StructuredText } from 'react-datocms/structured-text'
-
-// const accent_color = 'hover:bg-accent-dark dark:hover:bg-accent-light';
-// const content_color = 'text-dark hover:text-light dark:text-light dark:hover:text-dark';
-// const text_accent = 'text-accent-dark dark:text-accent-light';
-// const accent_content = 'text-light dark:text-dark';
-// const border_accent = 'border-accent-dark dark:border-accent-light';
+import { SocialIcon } from 'react-social-icons'
 
 const PAGE_CONTENT_QUERY = `
 query Projects {
@@ -85,7 +80,7 @@ export default function Home(props) {
           <div className={`flex flex-col flex-shrink gap-5`}>
             <div className={`flex h-28`}>
               <Image
-                src="/favicon.ico"
+                src={darkMode ? "/lightLogo.png" : "/darkLogo.png"}
                 width={165}
                 height={100}
                 alt="logo"
@@ -142,11 +137,13 @@ export default function Home(props) {
                   <h3 className={`${text_accent}`}>Past Work Experience</h3>
                   <StructuredText data={about.pastWorkExperience} />
                 </div>
-                <div className={`flex flex-col gap-2`}>
+                <div className={`flex flex-col gap-3`}>
                   <h3 className={`${text_accent}`}>Contact</h3>
-                  <p>LinkedIn</p>
-                  <p>Github</p>
-                  <p>Email</p>
+                  <div className={`flex flex-row gap-2`}>
+                    <SocialIcon url="https://www.linkedin.com/in/keshavnatarajan/" target='_blank' rel="noopener noreferrer" />
+                    <SocialIcon url="https://github.com/keshavblack123" target='_blank' rel="noopener noreferrer" />
+                    <SocialIcon href="mailto:keshavnatarajan@gmail.com" network='google' />
+                  </div>
                 </div>
               </div>
             </Panel>
