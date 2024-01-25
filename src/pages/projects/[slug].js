@@ -3,8 +3,11 @@ import { performRequest } from '../../../lib/datocms'
 import { Image as DatoImage, StructuredText } from "react-datocms";
 import { useState } from 'react'
 import { formatTagsString, formatDate } from '@/utils/utils';
-import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent } from '@/utils/utils';
+import { montserrat } from '@/utils/utils';
 import Link from 'next/link';
+
+const content_color = 'text-dark dark:text-light';
+const text_accent = 'text-accent-dark dark:text-accent-light';
 
 export default function Projects(props) {
   const { projectData } = props;
