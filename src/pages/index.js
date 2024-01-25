@@ -8,6 +8,11 @@ import { montserrat, accent_color, content_color, text_accent, accent_content, b
 import { StructuredText } from 'react-datocms/structured-text'
 import { SocialIcon } from 'react-social-icons'
 
+// const accent_color = 'hover:bg-accent-dark dark:hover:bg-accent-light';
+// const content_color = 'text-dark dark:text-light';
+// const text_accent = 'text-accent-dark dark:text-accent-light';
+// const accent_content = 'text-dark hover:text-light dark:text-light dark:hover:text-dark';
+// const border_accent = 'border-accent-dark dark:border-accent-light';
 
 const PAGE_CONTENT_QUERY = `
 query Projects {
