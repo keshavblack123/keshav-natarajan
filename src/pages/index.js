@@ -4,9 +4,10 @@ import { performRequest } from '../../lib/datocms'
 import Link from 'next/link'
 import { formatTagsString, formatDate } from '@/utils/utils'
 import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
-import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent, switch_color } from '@/utils/utils';
+import { montserrat, accent_color, content_color, text_accent, accent_content, border_accent } from '@/utils/utils';
 import { StructuredText } from 'react-datocms/structured-text'
 import { SocialIcon } from 'react-social-icons'
+
 
 const PAGE_CONTENT_QUERY = `
 query Projects {
