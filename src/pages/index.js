@@ -83,7 +83,7 @@ export default function Home(props) {
     <main className={` ${montserrat.className} ${darkMode && 'dark'} bg-light dark:bg-dark`}>
       <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark transition-colors`}>
         <div className={`flex flex-row h-full w-full gap-5`}>
-          <div className={`flex flex-col flex-shrink gap-5`}>
+          <div className={`hidden flex-col flex-shrink gap-5 sm:flex`}>
             <div className={`flex h-28`}>
               <Image
                 src={darkMode ? "/lightLogo.png" : "/darkLogo.png"}
