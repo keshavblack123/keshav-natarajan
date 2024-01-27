@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { formatTagsString, formatDate } from '@/utils/utils';
 import { montserrat } from '@/utils/utils';
 import Link from 'next/link';
+import Head from 'next/head'
 
 const content_color = 'text-dark dark:text-light';
 const text_accent = 'text-accent-dark dark:text-accent-light';
@@ -22,6 +23,9 @@ export default function Projects(props) {
 
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
+      <Head>
+        <title>KN | {projectData.title}</title>
+      </Head>
       <div className={`flex flex-row h-screen bg-light dark:bg-dark`}>
         <div className={`hidden flex-col my-5 ml-5 flex-shrink gap-5 sm:flex`}>
           <div className={`flex h-28`}>

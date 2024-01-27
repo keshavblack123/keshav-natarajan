@@ -7,6 +7,7 @@ import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
 import { montserrat } from '@/utils/utils';
 import { StructuredText } from 'react-datocms/structured-text'
 import { SocialIcon } from 'react-social-icons'
+import Head from 'next/head'
 
 const accent_color = 'hover:bg-accent-dark dark:hover:bg-accent-light';
 const content_color = 'text-dark dark:text-light';
@@ -81,6 +82,9 @@ export default function Home(props) {
 
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'} bg-light dark:bg-dark`}>
+      <Head>
+        <title>KN | Portfolio</title>
+      </Head>
       <div className={`flex h-screen flex-col items-center p-5 gap-5 bg-light dark:bg-dark transition-colors`}>
         <div className={`flex flex-row h-full w-full gap-5`}>
           <div className={`hidden flex-col flex-shrink gap-5 sm:flex`}>
