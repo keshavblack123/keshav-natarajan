@@ -23,7 +23,7 @@ export default function Projects(props) {
   return (
     <main className={` ${montserrat.className} ${darkMode && 'dark'}`}>
       <div className={`flex flex-row h-screen bg-light dark:bg-dark`}>
-        <div className={`flex flex-col m-5 flex-shrink gap-5`}>
+        <div className={`hidden flex-col my-5 ml-5 flex-shrink gap-5 sm:flex`}>
           <div className={`flex h-28`}>
             <Image
               src={darkMode ? "/lightLogo.png" : "/darkLogo.png"}
@@ -44,7 +44,7 @@ export default function Projects(props) {
             </button>
           </div>
         </div>
-        <div className={`flex flex-col w-full gap-5 overflow-auto pr-12`}>
+        <div className={`flex flex-col w-full gap-5 overflow-auto px-12`}>
           <div className={`flex flex-row min-h-28 w-full justify-between items-end`}>
             <button className={`flex gap-4 ${text_accent} transition-all hover:italic`}>
               <Link href="/">
