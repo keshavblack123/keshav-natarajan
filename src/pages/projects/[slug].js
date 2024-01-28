@@ -75,14 +75,19 @@ export default function Projects(props) {
 
           </div>
           <div className={`flex flex-col w-full gap-10 ${content_color}`}>
-            <div className={`flex flex-col w-full gap-3 ${content_color}`}>
+            <div className={`flex flex-col w-full gap-3`}>
               <h1 className={`mb-2`}>{projectData.title}</h1>
               <DatoImage data={projectData.heroImage.responsiveImage} />
               <div className={`flex flex-row w-full justify-between`}>
                 <div className={`flex flex-col w-1/3`}>
                   <p>Date: {formattedDate}</p>
                   <p>Tags: {tagsString}</p>
-                  <p><a href={projectData.githubLink} target="_blank" rel="noopener noreferrer">Project Link</a></p>
+                  <p>
+                    <a
+                      className={`underline hover:italic`}
+                      href={projectData.githubLink}
+                      target="_blank" rel="noopener noreferrer">Project Link</a>
+                  </p>
                 </div>
                 <div className={`w-2/3`}>
                   <StructuredText data={projectData.summary} />
@@ -142,6 +147,8 @@ query Project($slug: String) {
     githubLink
     summary {
       value
+      blocks
+      links
     }
     prevProject {
       slug

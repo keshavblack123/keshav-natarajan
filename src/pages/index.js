@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { formatTagsString, formatDate } from '@/utils/utils'
 import { Panel, PanelGroup, PanelResizeHandle, } from "react-resizable-panels";
 import { montserrat } from '@/utils/utils';
-import { StructuredText } from 'react-datocms/structured-text'
+import { StructuredText } from 'react-datocms'
 import { SocialIcon } from 'react-social-icons'
 import Head from 'next/head'
 
@@ -153,6 +153,7 @@ export default function Home(props) {
                     <SocialIcon url="https://www.linkedin.com/in/keshavnatarajan/" target='_blank' rel="noopener noreferrer" />
                     <SocialIcon url="https://github.com/keshavblack123" target='_blank' rel="noopener noreferrer" />
                     <SocialIcon href="mailto:keshavnatarajan@gmail.com" network='google' />
+                    <SocialIcon href='/Keshav_Natarajan_CV2024' download='Keshav_Natarajan_CV2024.pdf' network='email' />
                   </div>
                 </div>
               </div>
