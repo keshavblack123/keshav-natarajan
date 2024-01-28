@@ -152,8 +152,14 @@ export default function Home(props) {
                   <div className={`flex flex-row gap-2`}>
                     <SocialIcon url="https://www.linkedin.com/in/keshavnatarajan/" target='_blank' rel="noopener noreferrer" />
                     <SocialIcon url="https://github.com/keshavblack123" target='_blank' rel="noopener noreferrer" />
-                    <SocialIcon href="mailto:keshavnatarajan@gmail.com" network='google' />
-                    <SocialIcon href='/Keshav_Natarajan_CV2024' download='Keshav_Natarajan_CV2024.pdf' network='email' />
+                    <SocialIcon href="mailto:keshavnatarajan@gmail.com" network='email' />
+                    <a href='/Keshav_Natarajan_CV2024' download='Keshav_Natarajan_CV2024.pdf'>
+                      <Image
+                        src={'/resume.png'}
+                        width={50}
+                        height={50}
+                        alt='resume.pdf' />
+                    </a>
                   </div>
                 </div>
               </div>
