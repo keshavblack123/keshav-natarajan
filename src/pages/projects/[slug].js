@@ -53,7 +53,7 @@ export default function Projects(props) {
             <button className={`flex gap-4 ${text_accent} transition-all hover:italic`}>
               <Link href="/">
                 <span className="mr-2 text-xl">&larr;</span>
-                <span>Back</span>
+                <span>Projects</span>
               </Link>
             </button>
             <div className={`flex gap-4 ${text_accent}`}>
